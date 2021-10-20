@@ -1,0 +1,45 @@
+#grpc-cmake练习项目
+
+#这是设置最小版本
+cmake_minimum_required(VERSION 3.5.1) 
+
+
+#设置项目名称和使用语言
+project(CVServerClient C CXX)
+
+# Disallow in-source build
+if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
+  message(FATAL_ERROR
+    "project requires an out-of-source build. Please create a separate "
+    "binary directory and run CMake there.")
+endif ()
+
+#add_subdirectory(src)
+
+include(./cmake/common.cmake)
+#include(./src/Gate.cmake)
+find_package(gRPC CONFIG REQUIRED)
+
+find_package(OpenCV CONFIG REQUIRED)
+set(OpenCV_DIR D:/opencv3.4.3/opencv/build/x64/vc14/lib)#指定一下opencv路径
+
+include_directories(./Server/include ./Proto/*.h) #添加头文件
+include_directories(${OpenCV_INCLUDE_DIRS})
+ 
+FILE(GLOB_RECURSE CURRENT_INCLUDE ./Server/include/*.hpp ./Server/include/*.h ./Proto/*.h)
+FILE(GLOB_RECURSE CURRENT_SOURCES ./Server/src/*.cpp ./Proto/*.cc)     
+
+FILE(GLOB_RECURSE CLIENT_INCLUDE Client/include/*.hpp Client/include/*.h ./Proto/*.h)
+FILE(GLOB_RECURSE CLIENT_SOURCES Client/src/*.cpp Proto/*.cc)  
+
+
+add_executable(CVClient ${CLIENT_INCLUDE} ${CLIENT_SOURCES})
+target_link_libraries(CVClient gRPC::grpc++)
+target_link_libraries(CVClient ${OpenCV_LIBS})
+
+add_executable(CVServer ${CURRENT_SOURCES} ${CURRENT_INCLUDE})
+target_link_libraries(CVServer gRPC::grpc++)
+target_link_libraries(CVServer ${OpenCV_LIBS})
+
+
+
