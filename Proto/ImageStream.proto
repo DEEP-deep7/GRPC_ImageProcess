@@ -27,10 +27,13 @@ service CVServer {
   rpc CVMatImageStream(stream ImageMessage) returns (stream ImageMessage);
 
   //图像处理，客户端发送图像，服务器处理完成后返回
-  rpc CVImageProcessFunction(stream VideoMessage ) returns (stream VideoMessage);
+  rpc CVImageProcessFunction(stream ImageMessage) returns (stream ImageMessage);
 
+  //网络图像事实传输，登陆功能。
+  rpc CVLogin(stream RequestVideoMessage) returns ( stream ReplyVideoMessage);
+  
   //网络图像事实传输，视频功能。
-  rpc CVVideo()
+  rpc CVVideo(stream RequestVideoMessage) returns ( stream ReplyVideoMessage);
 }
 
 

@@ -46,7 +46,7 @@ struct TableStruct_ImageStream_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,9 +58,17 @@ namespace CVImageService {
 class ImageMessage;
 struct ImageMessageDefaultTypeInternal;
 extern ImageMessageDefaultTypeInternal _ImageMessage_default_instance_;
+class ReplyVideoMessage;
+struct ReplyVideoMessageDefaultTypeInternal;
+extern ReplyVideoMessageDefaultTypeInternal _ReplyVideoMessage_default_instance_;
+class RequestVideoMessage;
+struct RequestVideoMessageDefaultTypeInternal;
+extern RequestVideoMessageDefaultTypeInternal _RequestVideoMessage_default_instance_;
 }  // namespace CVImageService
 PROTOBUF_NAMESPACE_OPEN
 template<> ::CVImageService::ImageMessage* Arena::CreateMaybeMessage<::CVImageService::ImageMessage>(Arena*);
+template<> ::CVImageService::ReplyVideoMessage* Arena::CreateMaybeMessage<::CVImageService::ReplyVideoMessage>(Arena*);
+template<> ::CVImageService::RequestVideoMessage* Arena::CreateMaybeMessage<::CVImageService::RequestVideoMessage>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace CVImageService {
 
@@ -183,8 +191,6 @@ class ImageMessage PROTOBUF_FINAL :
     kEnCodeBuffFieldNumber = 6,
     kRowFieldNumber = 2,
     kColumFieldNumber = 3,
-    kTypeFieldNumber = 4,
-    kChannelFieldNumber = 5,
   };
   // string Command = 1;
   void clear_command();
@@ -236,24 +242,6 @@ class ImageMessage PROTOBUF_FINAL :
   void _internal_set_colum(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 type = 4;
-  void clear_type();
-  ::PROTOBUF_NAMESPACE_ID::int32 type() const;
-  void set_type(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_type() const;
-  void _internal_set_type(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // int32 channel = 5;
-  void clear_channel();
-  ::PROTOBUF_NAMESPACE_ID::int32 channel() const;
-  void set_channel(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_channel() const;
-  void _internal_set_channel(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
   // @@protoc_insertion_point(class_scope:CVImageService.ImageMessage)
  private:
   class _Internal;
@@ -265,8 +253,366 @@ class ImageMessage PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encodebuff_;
   ::PROTOBUF_NAMESPACE_ID::int32 row_;
   ::PROTOBUF_NAMESPACE_ID::int32 colum_;
-  ::PROTOBUF_NAMESPACE_ID::int32 type_;
-  ::PROTOBUF_NAMESPACE_ID::int32 channel_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ImageStream_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RequestVideoMessage PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CVImageService.RequestVideoMessage) */ {
+ public:
+  inline RequestVideoMessage() : RequestVideoMessage(nullptr) {}
+  virtual ~RequestVideoMessage();
+  explicit constexpr RequestVideoMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RequestVideoMessage(const RequestVideoMessage& from);
+  RequestVideoMessage(RequestVideoMessage&& from) noexcept
+    : RequestVideoMessage() {
+    *this = ::std::move(from);
+  }
+
+  inline RequestVideoMessage& operator=(const RequestVideoMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RequestVideoMessage& operator=(RequestVideoMessage&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RequestVideoMessage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RequestVideoMessage* internal_default_instance() {
+    return reinterpret_cast<const RequestVideoMessage*>(
+               &_RequestVideoMessage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(RequestVideoMessage& a, RequestVideoMessage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RequestVideoMessage* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RequestVideoMessage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RequestVideoMessage* New() const final {
+    return CreateMaybeMessage<RequestVideoMessage>(nullptr);
+  }
+
+  RequestVideoMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RequestVideoMessage>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RequestVideoMessage& from);
+  void MergeFrom(const RequestVideoMessage& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RequestVideoMessage* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "CVImageService.RequestVideoMessage";
+  }
+  protected:
+  explicit RequestVideoMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_ImageStream_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCommandFieldNumber = 1,
+    kUserDataFieldNumber = 2,
+    kVideoBuffFieldNumber = 3,
+  };
+  // string Command = 1;
+  void clear_command();
+  const std::string& command() const;
+  void set_command(const std::string& value);
+  void set_command(std::string&& value);
+  void set_command(const char* value);
+  void set_command(const char* value, size_t size);
+  std::string* mutable_command();
+  std::string* release_command();
+  void set_allocated_command(std::string* command);
+  private:
+  const std::string& _internal_command() const;
+  void _internal_set_command(const std::string& value);
+  std::string* _internal_mutable_command();
+  public:
+
+  // string UserData = 2;
+  void clear_userdata();
+  const std::string& userdata() const;
+  void set_userdata(const std::string& value);
+  void set_userdata(std::string&& value);
+  void set_userdata(const char* value);
+  void set_userdata(const char* value, size_t size);
+  std::string* mutable_userdata();
+  std::string* release_userdata();
+  void set_allocated_userdata(std::string* userdata);
+  private:
+  const std::string& _internal_userdata() const;
+  void _internal_set_userdata(const std::string& value);
+  std::string* _internal_mutable_userdata();
+  public:
+
+  // bytes VideoBuff = 3;
+  void clear_videobuff();
+  const std::string& videobuff() const;
+  void set_videobuff(const std::string& value);
+  void set_videobuff(std::string&& value);
+  void set_videobuff(const char* value);
+  void set_videobuff(const void* value, size_t size);
+  std::string* mutable_videobuff();
+  std::string* release_videobuff();
+  void set_allocated_videobuff(std::string* videobuff);
+  private:
+  const std::string& _internal_videobuff() const;
+  void _internal_set_videobuff(const std::string& value);
+  std::string* _internal_mutable_videobuff();
+  public:
+
+  // @@protoc_insertion_point(class_scope:CVImageService.RequestVideoMessage)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr command_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr userdata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr videobuff_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ImageStream_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ReplyVideoMessage PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CVImageService.ReplyVideoMessage) */ {
+ public:
+  inline ReplyVideoMessage() : ReplyVideoMessage(nullptr) {}
+  virtual ~ReplyVideoMessage();
+  explicit constexpr ReplyVideoMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ReplyVideoMessage(const ReplyVideoMessage& from);
+  ReplyVideoMessage(ReplyVideoMessage&& from) noexcept
+    : ReplyVideoMessage() {
+    *this = ::std::move(from);
+  }
+
+  inline ReplyVideoMessage& operator=(const ReplyVideoMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ReplyVideoMessage& operator=(ReplyVideoMessage&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ReplyVideoMessage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ReplyVideoMessage* internal_default_instance() {
+    return reinterpret_cast<const ReplyVideoMessage*>(
+               &_ReplyVideoMessage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(ReplyVideoMessage& a, ReplyVideoMessage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ReplyVideoMessage* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ReplyVideoMessage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ReplyVideoMessage* New() const final {
+    return CreateMaybeMessage<ReplyVideoMessage>(nullptr);
+  }
+
+  ReplyVideoMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ReplyVideoMessage>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ReplyVideoMessage& from);
+  void MergeFrom(const ReplyVideoMessage& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ReplyVideoMessage* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "CVImageService.ReplyVideoMessage";
+  }
+  protected:
+  explicit ReplyVideoMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_ImageStream_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCommandFieldNumber = 1,
+    kUserDataFieldNumber = 2,
+    kVideoBuffFieldNumber = 3,
+  };
+  // string Command = 1;
+  void clear_command();
+  const std::string& command() const;
+  void set_command(const std::string& value);
+  void set_command(std::string&& value);
+  void set_command(const char* value);
+  void set_command(const char* value, size_t size);
+  std::string* mutable_command();
+  std::string* release_command();
+  void set_allocated_command(std::string* command);
+  private:
+  const std::string& _internal_command() const;
+  void _internal_set_command(const std::string& value);
+  std::string* _internal_mutable_command();
+  public:
+
+  // string UserData = 2;
+  void clear_userdata();
+  const std::string& userdata() const;
+  void set_userdata(const std::string& value);
+  void set_userdata(std::string&& value);
+  void set_userdata(const char* value);
+  void set_userdata(const char* value, size_t size);
+  std::string* mutable_userdata();
+  std::string* release_userdata();
+  void set_allocated_userdata(std::string* userdata);
+  private:
+  const std::string& _internal_userdata() const;
+  void _internal_set_userdata(const std::string& value);
+  std::string* _internal_mutable_userdata();
+  public:
+
+  // bytes VideoBuff = 3;
+  void clear_videobuff();
+  const std::string& videobuff() const;
+  void set_videobuff(const std::string& value);
+  void set_videobuff(std::string&& value);
+  void set_videobuff(const char* value);
+  void set_videobuff(const void* value, size_t size);
+  std::string* mutable_videobuff();
+  std::string* release_videobuff();
+  void set_allocated_videobuff(std::string* videobuff);
+  private:
+  const std::string& _internal_videobuff() const;
+  void _internal_set_videobuff(const std::string& value);
+  std::string* _internal_mutable_videobuff();
+  public:
+
+  // @@protoc_insertion_point(class_scope:CVImageService.ReplyVideoMessage)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr command_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr userdata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr videobuff_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ImageStream_2eproto;
 };
@@ -382,46 +728,6 @@ inline void ImageMessage::set_colum(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:CVImageService.ImageMessage.colum)
 }
 
-// int32 type = 4;
-inline void ImageMessage::clear_type() {
-  type_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::_internal_type() const {
-  return type_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::type() const {
-  // @@protoc_insertion_point(field_get:CVImageService.ImageMessage.type)
-  return _internal_type();
-}
-inline void ImageMessage::_internal_set_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  type_ = value;
-}
-inline void ImageMessage::set_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_type(value);
-  // @@protoc_insertion_point(field_set:CVImageService.ImageMessage.type)
-}
-
-// int32 channel = 5;
-inline void ImageMessage::clear_channel() {
-  channel_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::_internal_channel() const {
-  return channel_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 ImageMessage::channel() const {
-  // @@protoc_insertion_point(field_get:CVImageService.ImageMessage.channel)
-  return _internal_channel();
-}
-inline void ImageMessage::_internal_set_channel(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  channel_ = value;
-}
-inline void ImageMessage::set_channel(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_channel(value);
-  // @@protoc_insertion_point(field_set:CVImageService.ImageMessage.channel)
-}
-
 // bytes EnCodeBuff = 6;
 inline void ImageMessage::clear_encodebuff() {
   encodebuff_.ClearToEmpty();
@@ -483,9 +789,387 @@ inline void ImageMessage::set_allocated_encodebuff(std::string* encodebuff) {
   // @@protoc_insertion_point(field_set_allocated:CVImageService.ImageMessage.EnCodeBuff)
 }
 
+// -------------------------------------------------------------------
+
+// RequestVideoMessage
+
+// string Command = 1;
+inline void RequestVideoMessage::clear_command() {
+  command_.ClearToEmpty();
+}
+inline const std::string& RequestVideoMessage::command() const {
+  // @@protoc_insertion_point(field_get:CVImageService.RequestVideoMessage.Command)
+  return _internal_command();
+}
+inline void RequestVideoMessage::set_command(const std::string& value) {
+  _internal_set_command(value);
+  // @@protoc_insertion_point(field_set:CVImageService.RequestVideoMessage.Command)
+}
+inline std::string* RequestVideoMessage::mutable_command() {
+  // @@protoc_insertion_point(field_mutable:CVImageService.RequestVideoMessage.Command)
+  return _internal_mutable_command();
+}
+inline const std::string& RequestVideoMessage::_internal_command() const {
+  return command_.Get();
+}
+inline void RequestVideoMessage::_internal_set_command(const std::string& value) {
+  
+  command_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RequestVideoMessage::set_command(std::string&& value) {
+  
+  command_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:CVImageService.RequestVideoMessage.Command)
+}
+inline void RequestVideoMessage::set_command(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  command_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:CVImageService.RequestVideoMessage.Command)
+}
+inline void RequestVideoMessage::set_command(const char* value,
+    size_t size) {
+  
+  command_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:CVImageService.RequestVideoMessage.Command)
+}
+inline std::string* RequestVideoMessage::_internal_mutable_command() {
+  
+  return command_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RequestVideoMessage::release_command() {
+  // @@protoc_insertion_point(field_release:CVImageService.RequestVideoMessage.Command)
+  return command_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RequestVideoMessage::set_allocated_command(std::string* command) {
+  if (command != nullptr) {
+    
+  } else {
+    
+  }
+  command_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), command,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:CVImageService.RequestVideoMessage.Command)
+}
+
+// string UserData = 2;
+inline void RequestVideoMessage::clear_userdata() {
+  userdata_.ClearToEmpty();
+}
+inline const std::string& RequestVideoMessage::userdata() const {
+  // @@protoc_insertion_point(field_get:CVImageService.RequestVideoMessage.UserData)
+  return _internal_userdata();
+}
+inline void RequestVideoMessage::set_userdata(const std::string& value) {
+  _internal_set_userdata(value);
+  // @@protoc_insertion_point(field_set:CVImageService.RequestVideoMessage.UserData)
+}
+inline std::string* RequestVideoMessage::mutable_userdata() {
+  // @@protoc_insertion_point(field_mutable:CVImageService.RequestVideoMessage.UserData)
+  return _internal_mutable_userdata();
+}
+inline const std::string& RequestVideoMessage::_internal_userdata() const {
+  return userdata_.Get();
+}
+inline void RequestVideoMessage::_internal_set_userdata(const std::string& value) {
+  
+  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RequestVideoMessage::set_userdata(std::string&& value) {
+  
+  userdata_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:CVImageService.RequestVideoMessage.UserData)
+}
+inline void RequestVideoMessage::set_userdata(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:CVImageService.RequestVideoMessage.UserData)
+}
+inline void RequestVideoMessage::set_userdata(const char* value,
+    size_t size) {
+  
+  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:CVImageService.RequestVideoMessage.UserData)
+}
+inline std::string* RequestVideoMessage::_internal_mutable_userdata() {
+  
+  return userdata_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RequestVideoMessage::release_userdata() {
+  // @@protoc_insertion_point(field_release:CVImageService.RequestVideoMessage.UserData)
+  return userdata_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RequestVideoMessage::set_allocated_userdata(std::string* userdata) {
+  if (userdata != nullptr) {
+    
+  } else {
+    
+  }
+  userdata_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), userdata,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:CVImageService.RequestVideoMessage.UserData)
+}
+
+// bytes VideoBuff = 3;
+inline void RequestVideoMessage::clear_videobuff() {
+  videobuff_.ClearToEmpty();
+}
+inline const std::string& RequestVideoMessage::videobuff() const {
+  // @@protoc_insertion_point(field_get:CVImageService.RequestVideoMessage.VideoBuff)
+  return _internal_videobuff();
+}
+inline void RequestVideoMessage::set_videobuff(const std::string& value) {
+  _internal_set_videobuff(value);
+  // @@protoc_insertion_point(field_set:CVImageService.RequestVideoMessage.VideoBuff)
+}
+inline std::string* RequestVideoMessage::mutable_videobuff() {
+  // @@protoc_insertion_point(field_mutable:CVImageService.RequestVideoMessage.VideoBuff)
+  return _internal_mutable_videobuff();
+}
+inline const std::string& RequestVideoMessage::_internal_videobuff() const {
+  return videobuff_.Get();
+}
+inline void RequestVideoMessage::_internal_set_videobuff(const std::string& value) {
+  
+  videobuff_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RequestVideoMessage::set_videobuff(std::string&& value) {
+  
+  videobuff_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:CVImageService.RequestVideoMessage.VideoBuff)
+}
+inline void RequestVideoMessage::set_videobuff(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  videobuff_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:CVImageService.RequestVideoMessage.VideoBuff)
+}
+inline void RequestVideoMessage::set_videobuff(const void* value,
+    size_t size) {
+  
+  videobuff_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:CVImageService.RequestVideoMessage.VideoBuff)
+}
+inline std::string* RequestVideoMessage::_internal_mutable_videobuff() {
+  
+  return videobuff_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RequestVideoMessage::release_videobuff() {
+  // @@protoc_insertion_point(field_release:CVImageService.RequestVideoMessage.VideoBuff)
+  return videobuff_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RequestVideoMessage::set_allocated_videobuff(std::string* videobuff) {
+  if (videobuff != nullptr) {
+    
+  } else {
+    
+  }
+  videobuff_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), videobuff,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:CVImageService.RequestVideoMessage.VideoBuff)
+}
+
+// -------------------------------------------------------------------
+
+// ReplyVideoMessage
+
+// string Command = 1;
+inline void ReplyVideoMessage::clear_command() {
+  command_.ClearToEmpty();
+}
+inline const std::string& ReplyVideoMessage::command() const {
+  // @@protoc_insertion_point(field_get:CVImageService.ReplyVideoMessage.Command)
+  return _internal_command();
+}
+inline void ReplyVideoMessage::set_command(const std::string& value) {
+  _internal_set_command(value);
+  // @@protoc_insertion_point(field_set:CVImageService.ReplyVideoMessage.Command)
+}
+inline std::string* ReplyVideoMessage::mutable_command() {
+  // @@protoc_insertion_point(field_mutable:CVImageService.ReplyVideoMessage.Command)
+  return _internal_mutable_command();
+}
+inline const std::string& ReplyVideoMessage::_internal_command() const {
+  return command_.Get();
+}
+inline void ReplyVideoMessage::_internal_set_command(const std::string& value) {
+  
+  command_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ReplyVideoMessage::set_command(std::string&& value) {
+  
+  command_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:CVImageService.ReplyVideoMessage.Command)
+}
+inline void ReplyVideoMessage::set_command(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  command_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:CVImageService.ReplyVideoMessage.Command)
+}
+inline void ReplyVideoMessage::set_command(const char* value,
+    size_t size) {
+  
+  command_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:CVImageService.ReplyVideoMessage.Command)
+}
+inline std::string* ReplyVideoMessage::_internal_mutable_command() {
+  
+  return command_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ReplyVideoMessage::release_command() {
+  // @@protoc_insertion_point(field_release:CVImageService.ReplyVideoMessage.Command)
+  return command_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ReplyVideoMessage::set_allocated_command(std::string* command) {
+  if (command != nullptr) {
+    
+  } else {
+    
+  }
+  command_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), command,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:CVImageService.ReplyVideoMessage.Command)
+}
+
+// string UserData = 2;
+inline void ReplyVideoMessage::clear_userdata() {
+  userdata_.ClearToEmpty();
+}
+inline const std::string& ReplyVideoMessage::userdata() const {
+  // @@protoc_insertion_point(field_get:CVImageService.ReplyVideoMessage.UserData)
+  return _internal_userdata();
+}
+inline void ReplyVideoMessage::set_userdata(const std::string& value) {
+  _internal_set_userdata(value);
+  // @@protoc_insertion_point(field_set:CVImageService.ReplyVideoMessage.UserData)
+}
+inline std::string* ReplyVideoMessage::mutable_userdata() {
+  // @@protoc_insertion_point(field_mutable:CVImageService.ReplyVideoMessage.UserData)
+  return _internal_mutable_userdata();
+}
+inline const std::string& ReplyVideoMessage::_internal_userdata() const {
+  return userdata_.Get();
+}
+inline void ReplyVideoMessage::_internal_set_userdata(const std::string& value) {
+  
+  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ReplyVideoMessage::set_userdata(std::string&& value) {
+  
+  userdata_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:CVImageService.ReplyVideoMessage.UserData)
+}
+inline void ReplyVideoMessage::set_userdata(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:CVImageService.ReplyVideoMessage.UserData)
+}
+inline void ReplyVideoMessage::set_userdata(const char* value,
+    size_t size) {
+  
+  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:CVImageService.ReplyVideoMessage.UserData)
+}
+inline std::string* ReplyVideoMessage::_internal_mutable_userdata() {
+  
+  return userdata_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ReplyVideoMessage::release_userdata() {
+  // @@protoc_insertion_point(field_release:CVImageService.ReplyVideoMessage.UserData)
+  return userdata_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ReplyVideoMessage::set_allocated_userdata(std::string* userdata) {
+  if (userdata != nullptr) {
+    
+  } else {
+    
+  }
+  userdata_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), userdata,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:CVImageService.ReplyVideoMessage.UserData)
+}
+
+// bytes VideoBuff = 3;
+inline void ReplyVideoMessage::clear_videobuff() {
+  videobuff_.ClearToEmpty();
+}
+inline const std::string& ReplyVideoMessage::videobuff() const {
+  // @@protoc_insertion_point(field_get:CVImageService.ReplyVideoMessage.VideoBuff)
+  return _internal_videobuff();
+}
+inline void ReplyVideoMessage::set_videobuff(const std::string& value) {
+  _internal_set_videobuff(value);
+  // @@protoc_insertion_point(field_set:CVImageService.ReplyVideoMessage.VideoBuff)
+}
+inline std::string* ReplyVideoMessage::mutable_videobuff() {
+  // @@protoc_insertion_point(field_mutable:CVImageService.ReplyVideoMessage.VideoBuff)
+  return _internal_mutable_videobuff();
+}
+inline const std::string& ReplyVideoMessage::_internal_videobuff() const {
+  return videobuff_.Get();
+}
+inline void ReplyVideoMessage::_internal_set_videobuff(const std::string& value) {
+  
+  videobuff_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ReplyVideoMessage::set_videobuff(std::string&& value) {
+  
+  videobuff_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:CVImageService.ReplyVideoMessage.VideoBuff)
+}
+inline void ReplyVideoMessage::set_videobuff(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  videobuff_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:CVImageService.ReplyVideoMessage.VideoBuff)
+}
+inline void ReplyVideoMessage::set_videobuff(const void* value,
+    size_t size) {
+  
+  videobuff_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:CVImageService.ReplyVideoMessage.VideoBuff)
+}
+inline std::string* ReplyVideoMessage::_internal_mutable_videobuff() {
+  
+  return videobuff_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ReplyVideoMessage::release_videobuff() {
+  // @@protoc_insertion_point(field_release:CVImageService.ReplyVideoMessage.VideoBuff)
+  return videobuff_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ReplyVideoMessage::set_allocated_videobuff(std::string* videobuff) {
+  if (videobuff != nullptr) {
+    
+  } else {
+    
+  }
+  videobuff_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), videobuff,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:CVImageService.ReplyVideoMessage.VideoBuff)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

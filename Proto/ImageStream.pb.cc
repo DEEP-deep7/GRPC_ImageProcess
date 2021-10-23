@@ -22,9 +22,7 @@ constexpr ImageMessage::ImageMessage(
   : command_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , encodebuff_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , row_(0)
-  , colum_(0)
-  , type_(0)
-  , channel_(0){}
+  , colum_(0){}
 struct ImageMessageDefaultTypeInternal {
   constexpr ImageMessageDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -34,8 +32,36 @@ struct ImageMessageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ImageMessageDefaultTypeInternal _ImageMessage_default_instance_;
+constexpr RequestVideoMessage::RequestVideoMessage(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : command_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , userdata_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , videobuff_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct RequestVideoMessageDefaultTypeInternal {
+  constexpr RequestVideoMessageDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~RequestVideoMessageDefaultTypeInternal() {}
+  union {
+    RequestVideoMessage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RequestVideoMessageDefaultTypeInternal _RequestVideoMessage_default_instance_;
+constexpr ReplyVideoMessage::ReplyVideoMessage(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : command_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , userdata_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , videobuff_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct ReplyVideoMessageDefaultTypeInternal {
+  constexpr ReplyVideoMessageDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ReplyVideoMessageDefaultTypeInternal() {}
+  union {
+    ReplyVideoMessage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReplyVideoMessageDefaultTypeInternal _ReplyVideoMessage_default_instance_;
 }  // namespace CVImageService
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ImageStream_2eproto[1];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ImageStream_2eproto[3];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_ImageStream_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_ImageStream_2eproto = nullptr;
 
@@ -48,34 +74,60 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ImageStream_2eproto::offsets[]
   PROTOBUF_FIELD_OFFSET(::CVImageService::ImageMessage, command_),
   PROTOBUF_FIELD_OFFSET(::CVImageService::ImageMessage, row_),
   PROTOBUF_FIELD_OFFSET(::CVImageService::ImageMessage, colum_),
-  PROTOBUF_FIELD_OFFSET(::CVImageService::ImageMessage, type_),
-  PROTOBUF_FIELD_OFFSET(::CVImageService::ImageMessage, channel_),
   PROTOBUF_FIELD_OFFSET(::CVImageService::ImageMessage, encodebuff_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::CVImageService::RequestVideoMessage, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::CVImageService::RequestVideoMessage, command_),
+  PROTOBUF_FIELD_OFFSET(::CVImageService::RequestVideoMessage, userdata_),
+  PROTOBUF_FIELD_OFFSET(::CVImageService::RequestVideoMessage, videobuff_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::CVImageService::ReplyVideoMessage, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::CVImageService::ReplyVideoMessage, command_),
+  PROTOBUF_FIELD_OFFSET(::CVImageService::ReplyVideoMessage, userdata_),
+  PROTOBUF_FIELD_OFFSET(::CVImageService::ReplyVideoMessage, videobuff_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::CVImageService::ImageMessage)},
+  { 9, -1, sizeof(::CVImageService::RequestVideoMessage)},
+  { 17, -1, sizeof(::CVImageService::ReplyVideoMessage)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CVImageService::_ImageMessage_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CVImageService::_RequestVideoMessage_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CVImageService::_ReplyVideoMessage_default_instance_),
 };
 
 const char descriptor_table_protodef_ImageStream_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\021ImageStream.proto\022\016CVImageService\"n\n\014I"
+  "\n\021ImageStream.proto\022\016CVImageService\"O\n\014I"
   "mageMessage\022\017\n\007Command\030\001 \001(\t\022\013\n\003row\030\002 \001("
-  "\005\022\r\n\005colum\030\003 \001(\005\022\014\n\004type\030\004 \001(\005\022\017\n\007channe"
-  "l\030\005 \001(\005\022\022\n\nEnCodeBuff\030\006 \001(\0142\270\001\n\010CVServer"
-  "\022R\n\020CVMatImageStream\022\034.CVImageService.Im"
-  "ageMessage\032\034.CVImageService.ImageMessage"
-  "(\0010\001\022X\n\026CVImageProcessFunction\022\034.CVImage"
-  "Service.ImageMessage\032\034.CVImageService.Im"
-  "ageMessage(\0010\001B*\n\025io.grpc.examples.gateB"
-  "\tGateProtoP\001\242\002\003RTGb\006proto3"
+  "\005\022\r\n\005colum\030\003 \001(\005\022\022\n\nEnCodeBuff\030\006 \001(\014\"K\n\023"
+  "RequestVideoMessage\022\017\n\007Command\030\001 \001(\t\022\020\n\010"
+  "UserData\030\002 \001(\t\022\021\n\tVideoBuff\030\003 \001(\014\"I\n\021Rep"
+  "lyVideoMessage\022\017\n\007Command\030\001 \001(\t\022\020\n\010UserD"
+  "ata\030\002 \001(\t\022\021\n\tVideoBuff\030\003 \001(\0142\346\002\n\010CVServe"
+  "r\022R\n\020CVMatImageStream\022\034.CVImageService.I"
+  "mageMessage\032\034.CVImageService.ImageMessag"
+  "e(\0010\001\022X\n\026CVImageProcessFunction\022\034.CVImag"
+  "eService.ImageMessage\032\034.CVImageService.I"
+  "mageMessage(\0010\001\022U\n\007CVLogin\022#.CVImageServ"
+  "ice.RequestVideoMessage\032!.CVImageService"
+  ".ReplyVideoMessage(\0010\001\022U\n\007CVVideo\022#.CVIm"
+  "ageService.RequestVideoMessage\032!.CVImage"
+  "Service.ReplyVideoMessage(\0010\001B*\n\025io.grpc"
+  ".examples.gateB\tGateProtoP\001\242\002\003RTGb\006proto"
+  "3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ImageStream_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ImageStream_2eproto = {
-  false, false, 386, descriptor_table_protodef_ImageStream_2eproto, "ImageStream.proto", 
-  &descriptor_table_ImageStream_2eproto_once, nullptr, 0, 1,
+  false, false, 681, descriptor_table_protodef_ImageStream_2eproto, "ImageStream.proto", 
+  &descriptor_table_ImageStream_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_ImageStream_2eproto::offsets,
   file_level_metadata_ImageStream_2eproto, file_level_enum_descriptors_ImageStream_2eproto, file_level_service_descriptors_ImageStream_2eproto,
 };
@@ -115,8 +167,8 @@ ImageMessage::ImageMessage(const ImageMessage& from)
       GetArena());
   }
   ::memcpy(&row_, &from.row_,
-    static_cast<size_t>(reinterpret_cast<char*>(&channel_) -
-    reinterpret_cast<char*>(&row_)) + sizeof(channel_));
+    static_cast<size_t>(reinterpret_cast<char*>(&colum_) -
+    reinterpret_cast<char*>(&row_)) + sizeof(colum_));
   // @@protoc_insertion_point(copy_constructor:CVImageService.ImageMessage)
 }
 
@@ -125,8 +177,8 @@ command_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlre
 encodebuff_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&row_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&channel_) -
-    reinterpret_cast<char*>(&row_)) + sizeof(channel_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&colum_) -
+    reinterpret_cast<char*>(&row_)) + sizeof(colum_));
 }
 
 ImageMessage::~ImageMessage() {
@@ -160,8 +212,8 @@ void ImageMessage::Clear() {
   command_.ClearToEmpty();
   encodebuff_.ClearToEmpty();
   ::memset(&row_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&channel_) -
-      reinterpret_cast<char*>(&row_)) + sizeof(channel_));
+      reinterpret_cast<char*>(&colum_) -
+      reinterpret_cast<char*>(&row_)) + sizeof(colum_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -192,20 +244,6 @@ const char* ImageMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           colum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int32 type = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int32 channel = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          channel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -267,18 +305,6 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_colum(), target);
   }
 
-  // int32 type = 4;
-  if (this->type() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_type(), target);
-  }
-
-  // int32 channel = 5;
-  if (this->channel() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_channel(), target);
-  }
-
   // bytes EnCodeBuff = 6;
   if (this->encodebuff().size() > 0) {
     target = stream->WriteBytesMaybeAliased(
@@ -329,20 +355,6 @@ size_t ImageMessage::ByteSizeLong() const {
         this->_internal_colum());
   }
 
-  // int32 type = 4;
-  if (this->type() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_type());
-  }
-
-  // int32 channel = 5;
-  if (this->channel() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_channel());
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -386,12 +398,6 @@ void ImageMessage::MergeFrom(const ImageMessage& from) {
   if (from.colum() != 0) {
     _internal_set_colum(from._internal_colum());
   }
-  if (from.type() != 0) {
-    _internal_set_type(from._internal_type());
-  }
-  if (from.channel() != 0) {
-    _internal_set_channel(from._internal_channel());
-  }
 }
 
 void ImageMessage::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -418,8 +424,8 @@ void ImageMessage::InternalSwap(ImageMessage* other) {
   command_.Swap(&other->command_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   encodebuff_.Swap(&other->encodebuff_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ImageMessage, channel_)
-      + sizeof(ImageMessage::channel_)
+      PROTOBUF_FIELD_OFFSET(ImageMessage, colum_)
+      + sizeof(ImageMessage::colum_)
       - PROTOBUF_FIELD_OFFSET(ImageMessage, row_)>(
           reinterpret_cast<char*>(&row_),
           reinterpret_cast<char*>(&other->row_));
@@ -430,11 +436,559 @@ void ImageMessage::InternalSwap(ImageMessage* other) {
 }
 
 
+// ===================================================================
+
+class RequestVideoMessage::_Internal {
+ public:
+};
+
+RequestVideoMessage::RequestVideoMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:CVImageService.RequestVideoMessage)
+}
+RequestVideoMessage::RequestVideoMessage(const RequestVideoMessage& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  command_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_command().empty()) {
+    command_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_command(), 
+      GetArena());
+  }
+  userdata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_userdata().empty()) {
+    userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_userdata(), 
+      GetArena());
+  }
+  videobuff_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_videobuff().empty()) {
+    videobuff_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_videobuff(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:CVImageService.RequestVideoMessage)
+}
+
+void RequestVideoMessage::SharedCtor() {
+command_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+userdata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+videobuff_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+RequestVideoMessage::~RequestVideoMessage() {
+  // @@protoc_insertion_point(destructor:CVImageService.RequestVideoMessage)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void RequestVideoMessage::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  command_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  userdata_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  videobuff_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void RequestVideoMessage::ArenaDtor(void* object) {
+  RequestVideoMessage* _this = reinterpret_cast< RequestVideoMessage* >(object);
+  (void)_this;
+}
+void RequestVideoMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void RequestVideoMessage::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void RequestVideoMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:CVImageService.RequestVideoMessage)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  command_.ClearToEmpty();
+  userdata_.ClearToEmpty();
+  videobuff_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RequestVideoMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string Command = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_command();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CVImageService.RequestVideoMessage.Command"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string UserData = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_userdata();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CVImageService.RequestVideoMessage.UserData"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes VideoBuff = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_videobuff();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* RequestVideoMessage::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:CVImageService.RequestVideoMessage)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string Command = 1;
+  if (this->command().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_command().data(), static_cast<int>(this->_internal_command().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "CVImageService.RequestVideoMessage.Command");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_command(), target);
+  }
+
+  // string UserData = 2;
+  if (this->userdata().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_userdata().data(), static_cast<int>(this->_internal_userdata().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "CVImageService.RequestVideoMessage.UserData");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_userdata(), target);
+  }
+
+  // bytes VideoBuff = 3;
+  if (this->videobuff().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_videobuff(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:CVImageService.RequestVideoMessage)
+  return target;
+}
+
+size_t RequestVideoMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:CVImageService.RequestVideoMessage)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string Command = 1;
+  if (this->command().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_command());
+  }
+
+  // string UserData = 2;
+  if (this->userdata().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_userdata());
+  }
+
+  // bytes VideoBuff = 3;
+  if (this->videobuff().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_videobuff());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RequestVideoMessage::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:CVImageService.RequestVideoMessage)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RequestVideoMessage* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RequestVideoMessage>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:CVImageService.RequestVideoMessage)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:CVImageService.RequestVideoMessage)
+    MergeFrom(*source);
+  }
+}
+
+void RequestVideoMessage::MergeFrom(const RequestVideoMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:CVImageService.RequestVideoMessage)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.command().size() > 0) {
+    _internal_set_command(from._internal_command());
+  }
+  if (from.userdata().size() > 0) {
+    _internal_set_userdata(from._internal_userdata());
+  }
+  if (from.videobuff().size() > 0) {
+    _internal_set_videobuff(from._internal_videobuff());
+  }
+}
+
+void RequestVideoMessage::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:CVImageService.RequestVideoMessage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RequestVideoMessage::CopyFrom(const RequestVideoMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:CVImageService.RequestVideoMessage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RequestVideoMessage::IsInitialized() const {
+  return true;
+}
+
+void RequestVideoMessage::InternalSwap(RequestVideoMessage* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  command_.Swap(&other->command_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  userdata_.Swap(&other->userdata_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  videobuff_.Swap(&other->videobuff_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RequestVideoMessage::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class ReplyVideoMessage::_Internal {
+ public:
+};
+
+ReplyVideoMessage::ReplyVideoMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:CVImageService.ReplyVideoMessage)
+}
+ReplyVideoMessage::ReplyVideoMessage(const ReplyVideoMessage& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  command_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_command().empty()) {
+    command_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_command(), 
+      GetArena());
+  }
+  userdata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_userdata().empty()) {
+    userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_userdata(), 
+      GetArena());
+  }
+  videobuff_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_videobuff().empty()) {
+    videobuff_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_videobuff(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:CVImageService.ReplyVideoMessage)
+}
+
+void ReplyVideoMessage::SharedCtor() {
+command_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+userdata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+videobuff_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+ReplyVideoMessage::~ReplyVideoMessage() {
+  // @@protoc_insertion_point(destructor:CVImageService.ReplyVideoMessage)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void ReplyVideoMessage::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  command_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  userdata_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  videobuff_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void ReplyVideoMessage::ArenaDtor(void* object) {
+  ReplyVideoMessage* _this = reinterpret_cast< ReplyVideoMessage* >(object);
+  (void)_this;
+}
+void ReplyVideoMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ReplyVideoMessage::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ReplyVideoMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:CVImageService.ReplyVideoMessage)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  command_.ClearToEmpty();
+  userdata_.ClearToEmpty();
+  videobuff_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ReplyVideoMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string Command = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_command();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CVImageService.ReplyVideoMessage.Command"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string UserData = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_userdata();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CVImageService.ReplyVideoMessage.UserData"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes VideoBuff = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_videobuff();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ReplyVideoMessage::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:CVImageService.ReplyVideoMessage)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string Command = 1;
+  if (this->command().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_command().data(), static_cast<int>(this->_internal_command().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "CVImageService.ReplyVideoMessage.Command");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_command(), target);
+  }
+
+  // string UserData = 2;
+  if (this->userdata().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_userdata().data(), static_cast<int>(this->_internal_userdata().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "CVImageService.ReplyVideoMessage.UserData");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_userdata(), target);
+  }
+
+  // bytes VideoBuff = 3;
+  if (this->videobuff().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_videobuff(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:CVImageService.ReplyVideoMessage)
+  return target;
+}
+
+size_t ReplyVideoMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:CVImageService.ReplyVideoMessage)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string Command = 1;
+  if (this->command().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_command());
+  }
+
+  // string UserData = 2;
+  if (this->userdata().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_userdata());
+  }
+
+  // bytes VideoBuff = 3;
+  if (this->videobuff().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_videobuff());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ReplyVideoMessage::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:CVImageService.ReplyVideoMessage)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ReplyVideoMessage* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReplyVideoMessage>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:CVImageService.ReplyVideoMessage)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:CVImageService.ReplyVideoMessage)
+    MergeFrom(*source);
+  }
+}
+
+void ReplyVideoMessage::MergeFrom(const ReplyVideoMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:CVImageService.ReplyVideoMessage)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.command().size() > 0) {
+    _internal_set_command(from._internal_command());
+  }
+  if (from.userdata().size() > 0) {
+    _internal_set_userdata(from._internal_userdata());
+  }
+  if (from.videobuff().size() > 0) {
+    _internal_set_videobuff(from._internal_videobuff());
+  }
+}
+
+void ReplyVideoMessage::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:CVImageService.ReplyVideoMessage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ReplyVideoMessage::CopyFrom(const ReplyVideoMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:CVImageService.ReplyVideoMessage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReplyVideoMessage::IsInitialized() const {
+  return true;
+}
+
+void ReplyVideoMessage::InternalSwap(ReplyVideoMessage* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  command_.Swap(&other->command_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  userdata_.Swap(&other->userdata_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  videobuff_.Swap(&other->videobuff_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ReplyVideoMessage::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace CVImageService
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::CVImageService::ImageMessage* Arena::CreateMaybeMessage< ::CVImageService::ImageMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::CVImageService::ImageMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::CVImageService::RequestVideoMessage* Arena::CreateMaybeMessage< ::CVImageService::RequestVideoMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::CVImageService::RequestVideoMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::CVImageService::ReplyVideoMessage* Arena::CreateMaybeMessage< ::CVImageService::ReplyVideoMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::CVImageService::ReplyVideoMessage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -19,7 +19,7 @@ class CVImageServer final : public CVServer::Service
 {
 public:
 
-	
+	//重写接口实现功能
 
 	CVImageServer();
 
@@ -29,9 +29,19 @@ public:
 	::grpc::Status CVImageProcessFunction(::grpc::ServerContext* context, 
 		::grpc::ServerReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* stream);
 
+	::grpc::Status CVLogin(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, 
+		::CVImageService::RequestVideoMessage>* stream);
+
+	::grpc::Status CVVideo(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, 
+		::CVImageService::RequestVideoMessage>* stream);
+
+
 
 private:
 	cv::Mat CVImageProcess();
 
 	cv::Mat CVImageProcess(cv::Mat Image);
+
+	//保存用户和stream
+	std::map<std::string, ::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>*> m_UserMap;
 };

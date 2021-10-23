@@ -71,6 +71,26 @@ class CVServer final {
     std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>> PrepareAsyncCVImageProcessFunction(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>>(PrepareAsyncCVImageProcessFunctionRaw(context, cq));
     }
+    // 网络图像事实传输，登陆功能。
+    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> CVLogin(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(CVLoginRaw(context));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> AsyncCVLogin(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(AsyncCVLoginRaw(context, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> PrepareAsyncCVLogin(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(PrepareAsyncCVLoginRaw(context, cq));
+    }
+    // 网络图像事实传输，视频功能。
+    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> CVVideo(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(CVVideoRaw(context));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> AsyncCVVideo(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(AsyncCVVideoRaw(context, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> PrepareAsyncCVVideo(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(PrepareAsyncCVVideoRaw(context, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -78,6 +98,10 @@ class CVServer final {
       virtual void CVMatImageStream(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CVImageService::ImageMessage,::CVImageService::ImageMessage>* reactor) = 0;
       // 图像处理，客户端发送图像，服务器处理完成后返回
       virtual void CVImageProcessFunction(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CVImageService::ImageMessage,::CVImageService::ImageMessage>* reactor) = 0;
+      // 网络图像事实传输，登陆功能。
+      virtual void CVLogin(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CVImageService::RequestVideoMessage,::CVImageService::ReplyVideoMessage>* reactor) = 0;
+      // 网络图像事实传输，视频功能。
+      virtual void CVVideo(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CVImageService::RequestVideoMessage,::CVImageService::ReplyVideoMessage>* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -89,6 +113,12 @@ class CVServer final {
     virtual ::grpc::ClientReaderWriterInterface< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* CVImageProcessFunctionRaw(::grpc::ClientContext* context) = 0;
     virtual ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* AsyncCVImageProcessFunctionRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* PrepareAsyncCVImageProcessFunctionRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVLoginRaw(::grpc::ClientContext* context) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* AsyncCVLoginRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* PrepareAsyncCVLoginRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVVideoRaw(::grpc::ClientContext* context) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* AsyncCVVideoRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* PrepareAsyncCVVideoRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -111,11 +141,31 @@ class CVServer final {
     std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>> PrepareAsyncCVImageProcessFunction(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>>(PrepareAsyncCVImageProcessFunctionRaw(context, cq));
     }
+    std::unique_ptr< ::grpc::ClientReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> CVLogin(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(CVLoginRaw(context));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> AsyncCVLogin(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(AsyncCVLoginRaw(context, cq, tag));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> PrepareAsyncCVLogin(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(PrepareAsyncCVLoginRaw(context, cq));
+    }
+    std::unique_ptr< ::grpc::ClientReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> CVVideo(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(CVVideoRaw(context));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> AsyncCVVideo(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(AsyncCVVideoRaw(context, cq, tag));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>> PrepareAsyncCVVideo(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>>(PrepareAsyncCVVideoRaw(context, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
       void CVMatImageStream(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CVImageService::ImageMessage,::CVImageService::ImageMessage>* reactor) override;
       void CVImageProcessFunction(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CVImageService::ImageMessage,::CVImageService::ImageMessage>* reactor) override;
+      void CVLogin(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CVImageService::RequestVideoMessage,::CVImageService::ReplyVideoMessage>* reactor) override;
+      void CVVideo(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CVImageService::RequestVideoMessage,::CVImageService::ReplyVideoMessage>* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -133,8 +183,16 @@ class CVServer final {
     ::grpc::ClientReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* CVImageProcessFunctionRaw(::grpc::ClientContext* context) override;
     ::grpc::ClientAsyncReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* AsyncCVImageProcessFunctionRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* PrepareAsyncCVImageProcessFunctionRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVLoginRaw(::grpc::ClientContext* context) override;
+    ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* AsyncCVLoginRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* PrepareAsyncCVLoginRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVVideoRaw(::grpc::ClientContext* context) override;
+    ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* AsyncCVVideoRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* PrepareAsyncCVVideoRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_CVMatImageStream_;
     const ::grpc::internal::RpcMethod rpcmethod_CVImageProcessFunction_;
+    const ::grpc::internal::RpcMethod rpcmethod_CVLogin_;
+    const ::grpc::internal::RpcMethod rpcmethod_CVVideo_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -146,6 +204,10 @@ class CVServer final {
     virtual ::grpc::Status CVMatImageStream(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* stream);
     // 图像处理，客户端发送图像，服务器处理完成后返回
     virtual ::grpc::Status CVImageProcessFunction(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* stream);
+    // 网络图像事实传输，登陆功能。
+    virtual ::grpc::Status CVLogin(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream);
+    // 网络图像事实传输，视频功能。
+    virtual ::grpc::Status CVVideo(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream);
   };
   template <class BaseClass>
   class WithAsyncMethod_CVMatImageStream : public BaseClass {
@@ -187,7 +249,47 @@ class CVServer final {
       ::grpc::Service::RequestAsyncBidiStreaming(1, context, stream, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CVMatImageStream<WithAsyncMethod_CVImageProcessFunction<Service > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_CVLogin : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CVLogin() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_CVLogin() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVLogin(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCVLogin(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(2, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_CVVideo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CVVideo() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_CVVideo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVVideo(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCVVideo(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(3, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_CVMatImageStream<WithAsyncMethod_CVImageProcessFunction<WithAsyncMethod_CVLogin<WithAsyncMethod_CVVideo<Service > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CVMatImageStream : public BaseClass {
    private:
@@ -234,7 +336,53 @@ class CVServer final {
       ::grpc::CallbackServerContext* /*context*/)
       { return nullptr; }
   };
-  typedef WithCallbackMethod_CVMatImageStream<WithCallbackMethod_CVImageProcessFunction<Service > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_CVLogin : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CVLogin() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackBidiHandler< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->CVLogin(context); }));
+    }
+    ~WithCallbackMethod_CVLogin() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVLogin(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVLogin(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CVVideo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CVVideo() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackBidiHandler< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->CVVideo(context); }));
+    }
+    ~WithCallbackMethod_CVVideo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVVideo(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVVideo(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  typedef WithCallbackMethod_CVMatImageStream<WithCallbackMethod_CVImageProcessFunction<WithCallbackMethod_CVLogin<WithCallbackMethod_CVVideo<Service > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CVMatImageStream : public BaseClass {
@@ -266,6 +414,40 @@ class CVServer final {
     }
     // disable synchronous version of this method
     ::grpc::Status CVImageProcessFunction(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_CVLogin : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CVLogin() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_CVLogin() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVLogin(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_CVVideo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CVVideo() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_CVVideo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVVideo(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -311,6 +493,46 @@ class CVServer final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_CVLogin : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CVLogin() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_CVLogin() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVLogin(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCVLogin(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(2, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_CVVideo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CVVideo() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_CVVideo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVVideo(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCVVideo(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(3, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_CVMatImageStream : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -353,6 +575,52 @@ class CVServer final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* CVImageProcessFunction(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CVLogin : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CVLogin() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->CVLogin(context); }));
+    }
+    ~WithRawCallbackMethod_CVLogin() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVLogin(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* CVLogin(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CVVideo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CVVideo() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->CVVideo(context); }));
+    }
+    ~WithRawCallbackMethod_CVVideo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CVVideo(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* CVVideo(
       ::grpc::CallbackServerContext* /*context*/)
       { return nullptr; }
   };

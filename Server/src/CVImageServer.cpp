@@ -160,3 +160,18 @@ cv::Mat CVImageServer::CVImageProcess(cv::Mat Image)
 	}
 	return dest;
 }
+
+
+::grpc::Status CVImageServer::CVLogin(::grpc::ServerContext * context, 
+	::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream)
+{
+	
+	return ::grpc::Status();
+}
+
+
+::grpc::Status CVImageServer::CVVideo(::grpc::ServerContext * context, 
+	::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream)
+{
+	return ::grpc::Status();
+}
