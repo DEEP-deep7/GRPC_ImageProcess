@@ -27,7 +27,10 @@ service CVServer {
   rpc CVMatImageStream(stream ImageMessage) returns (stream ImageMessage);
 
   //图像处理，客户端发送图像，服务器处理完成后返回
-  rpc CVImageProcessFunction(stream ImageMessage) returns (stream ImageMessage);
+  rpc CVImageProcessFunction(stream VideoMessage ) returns (stream VideoMessage);
+
+  //网络图像事实传输，视频功能。
+  rpc CVVideo()
 }
 
 
@@ -40,13 +43,32 @@ message ImageMessage {
   int32 row = 2;
   //列数
   int32 colum = 3;  
-  //类型
-  int32 type = 4;
-
-  //状态码
-  int32 channel = 5;
 
   //图像buffer
   bytes EnCodeBuff = 6;
 }
 
+//网络视频功能请求消息
+message RequestVideoMessage {
+  //命令
+  string Command = 1;
+ 
+  //用户数据，如用户名
+  string UserData = 2;
+
+  //图像buffer
+  bytes VideoBuff = 3;
+}
+
+
+//网络视频功能回复消息
+message ReplyVideoMessage {
+  //命令
+  string Command = 1;
+ 
+  //用户数据
+  string UserData = 2;
+
+  //图像buffer
+  bytes VideoBuff = 3;
+}
