@@ -26,6 +26,8 @@ public:
 
 	void GetImageData();
 
+	void Login();
+
 private:
 	void ShowImage(cv::Mat image);
 

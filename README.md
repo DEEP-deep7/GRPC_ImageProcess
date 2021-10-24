@@ -20,6 +20,7 @@ windows vs2015以上
 mkdir ../build
 cd ../build
 cmake ../GRPC_ImageProcess -G "Visual Studio 14 2015" -D Protobuf_DIR="..." -D OpenCV_DIR="..." -D gRPC_DIR="..."
-cmake --build .
+cmake --build . --config Release
 ```
 
+也可以使用cmake gui生成vs工程，然后编译。

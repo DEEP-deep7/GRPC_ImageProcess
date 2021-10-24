@@ -60,6 +60,30 @@ void CVImageClient::GetImageData()
     ShowImage(tempmat);
 }
 
+void CVImageClient::Login()
+{
+    std::cout << "输入用户名" << std::endl;
+    std::string username;
+    std::cin >> username;
+    grpc::ClientContext context;
+    std::shared_ptr<grpc::ClientReaderWriter<CVImageService::RequestVideoMessage, CVImageService::ReplyVideoMessage>> stream(
+        m_stub->CVLogin(&context));
+
+    CVImageService::RequestVideoMessage request;
+    request.set_command("Login");
+    request.set_userdata(username);
+    stream->Write(request);
+
+    CVImageService::ReplyVideoMessage reply;
+    stream->Read(&reply);
+    if (reply.userdata().compare("secuess") != 0)
+    {
+        std::cout << "登录失败" << std::endl;
+        return;
+    }
+    std::cout << "登录成功" << std::endl;
+}
+
 void CVImageClient::ImageProcess()
 {
     std::string command;

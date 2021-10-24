@@ -131,6 +131,66 @@ CVImageServer::CVImageServer()
 	return ::grpc::Status::OK;
 }
 
+::grpc::Status CVImageServer::CVLogin(::grpc::ServerContext* context,
+	::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream)
+{
+	std::cout << "CVLogin" << std::endl;
+
+	::CVImageService::RequestVideoMessage request;
+	stream->Read(&request);
+
+	if (request.command().empty())
+	{
+		std::cout << "no command" << std::endl;
+	}
+
+	std::cout << "user name:" << request.userdata() <<"£¬command:" << request.command() << std::endl;
+	if (request.command().compare("Login") == 0)
+	{
+		std::string username = request.userdata();
+		m_UserMap.insert(std::pair<std::string,
+			::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage,
+			::CVImageService::RequestVideoMessage>*>(username, stream));
+
+		::CVImageService::ReplyVideoMessage reply;
+		reply.set_command("Login");
+		reply.set_userdata("secuess");
+		stream->Write(reply);
+	}
+
+	return ::grpc::Status();
+}
+
+
+::grpc::Status CVImageServer::CVVideo(::grpc::ServerContext* context,
+	::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream)
+{
+	//std::cout << "CVLogin" << std::endl;
+
+	::CVImageService::RequestVideoMessage request;
+	stream->Read(&request);
+
+	if (request.command().compare("Video") != 0)
+	{
+		std::string username = request.userdata();
+		
+		auto Userstream = m_UserMap.at(username);
+		if (Userstream == nullptr)
+		{
+			std::cout << "find error stream" << std::endl;
+			return ::grpc::Status::OK;
+		}
+
+		::CVImageService::ReplyVideoMessage reply;
+		reply.set_command("Video");
+		reply.set_userdata("secuess");
+		reply.set_videobuff(request.videobuff());
+		Userstream->Write(reply);
+	}
+
+	return ::grpc::Status::OK;
+}
+
 cv::Mat CVImageServer::CVImageProcess(cv::Mat Image)
 {
 	cv::Mat dest;
@@ -162,16 +222,3 @@ cv::Mat CVImageServer::CVImageProcess(cv::Mat Image)
 }
 
 
-::grpc::Status CVImageServer::CVLogin(::grpc::ServerContext * context, 
-	::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream)
-{
-	
-	return ::grpc::Status();
-}
-
-
-::grpc::Status CVImageServer::CVVideo(::grpc::ServerContext * context, 
-	::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream)
-{
-	return ::grpc::Status();
-}
