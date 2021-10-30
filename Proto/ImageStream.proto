@@ -57,7 +57,7 @@ message RequestVideoMessage {
   string Command = 1;
  
   //用户数据，如用户名
-  string UserData = 2;
+  repeated string UserData = 2;
 
   //图像buffer
   bytes VideoBuff = 3;
@@ -70,7 +70,7 @@ message ReplyVideoMessage {
   string Command = 1;
  
   //用户数据
-  string UserData = 2;
+  repeated string UserData = 2;
 
   //图像buffer
   bytes VideoBuff = 3;

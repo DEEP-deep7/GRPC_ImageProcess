@@ -28,6 +28,8 @@ public:
 
 	void Login();
 
+	void NetViedo();
+
 private:
 	void ShowImage(cv::Mat image);
 

@@ -4,7 +4,7 @@
 cv::Mat CVImageServer::CVImageProcess()
 {
 	Mat src, dest;
-	src = imread("C:/Users/gl/Desktop/Temp/photo.png");
+	src = imread("C:/Users/gl/Desktop/Temp/3.jpg");
 	//namedWindow("测试opencv", WINDOW_AUTOSIZE);
 	//imshow("测试opencv", src);
 
@@ -144,17 +144,29 @@ CVImageServer::CVImageServer()
 		std::cout << "no command" << std::endl;
 	}
 
-	std::cout << "user name:" << request.userdata() <<"，command:" << request.command() << std::endl;
+	std::cout << "user name:" << request.userdata(0) <<"，command:" << request.command() << std::endl;
 	if (request.command().compare("Login") == 0)
 	{
-		std::string username = request.userdata();
-		m_UserMap.insert(std::pair<std::string,
-			::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage,
-			::CVImageService::RequestVideoMessage>*>(username, stream));
+		std::string username = request.userdata(0);
+
+		if (m_UserMap.find(username) == m_UserMap.end())
+		{
+			m_UserMap.insert(std::pair<std::string,
+				::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage,
+				::CVImageService::RequestVideoMessage>*>(username, stream));
+		}
 
 		::CVImageService::ReplyVideoMessage reply;
 		reply.set_command("Login");
-		reply.set_userdata("secuess");
+		reply.add_userdata("secuess");  //不要使用set_userdata(int,cont char*)这样的接口，会崩溃
+		int i = 1;
+		for (auto it = m_UserMap.begin(); it != m_UserMap.end(); it++)
+		{
+			if (it->first.compare(username)!= 0) //不展示自己的username
+			{
+				reply.add_userdata(it->first);
+			}
+		}
 		stream->Write(reply);
 	}
 
@@ -172,7 +184,7 @@ CVImageServer::CVImageServer()
 
 	if (request.command().compare("Video") != 0)
 	{
-		std::string username = request.userdata();
+		std::string username = request.userdata(0);
 		
 		auto Userstream = m_UserMap.at(username);
 		if (Userstream == nullptr)
@@ -183,7 +195,7 @@ CVImageServer::CVImageServer()
 
 		::CVImageService::ReplyVideoMessage reply;
 		reply.set_command("Video");
-		reply.set_userdata("secuess");
+		reply.set_userdata(0,"secuess");
 		reply.set_videobuff(request.videobuff());
 		Userstream->Write(reply);
 	}

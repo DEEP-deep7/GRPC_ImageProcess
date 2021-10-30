@@ -371,10 +371,34 @@ class RequestVideoMessage PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCommandFieldNumber = 1,
     kUserDataFieldNumber = 2,
+    kCommandFieldNumber = 1,
     kVideoBuffFieldNumber = 3,
   };
+  // repeated string UserData = 2;
+  int userdata_size() const;
+  private:
+  int _internal_userdata_size() const;
+  public:
+  void clear_userdata();
+  const std::string& userdata(int index) const;
+  std::string* mutable_userdata(int index);
+  void set_userdata(int index, const std::string& value);
+  void set_userdata(int index, std::string&& value);
+  void set_userdata(int index, const char* value);
+  void set_userdata(int index, const char* value, size_t size);
+  std::string* add_userdata();
+  void add_userdata(const std::string& value);
+  void add_userdata(std::string&& value);
+  void add_userdata(const char* value);
+  void add_userdata(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& userdata() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_userdata();
+  private:
+  const std::string& _internal_userdata(int index) const;
+  std::string* _internal_add_userdata();
+  public:
+
   // string Command = 1;
   void clear_command();
   const std::string& command() const;
@@ -389,22 +413,6 @@ class RequestVideoMessage PROTOBUF_FINAL :
   const std::string& _internal_command() const;
   void _internal_set_command(const std::string& value);
   std::string* _internal_mutable_command();
-  public:
-
-  // string UserData = 2;
-  void clear_userdata();
-  const std::string& userdata() const;
-  void set_userdata(const std::string& value);
-  void set_userdata(std::string&& value);
-  void set_userdata(const char* value);
-  void set_userdata(const char* value, size_t size);
-  std::string* mutable_userdata();
-  std::string* release_userdata();
-  void set_allocated_userdata(std::string* userdata);
-  private:
-  const std::string& _internal_userdata() const;
-  void _internal_set_userdata(const std::string& value);
-  std::string* _internal_mutable_userdata();
   public:
 
   // bytes VideoBuff = 3;
@@ -430,8 +438,8 @@ class RequestVideoMessage PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> userdata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr command_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr userdata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr videobuff_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ImageStream_2eproto;
@@ -551,10 +559,34 @@ class ReplyVideoMessage PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCommandFieldNumber = 1,
     kUserDataFieldNumber = 2,
+    kCommandFieldNumber = 1,
     kVideoBuffFieldNumber = 3,
   };
+  // repeated string UserData = 2;
+  int userdata_size() const;
+  private:
+  int _internal_userdata_size() const;
+  public:
+  void clear_userdata();
+  const std::string& userdata(int index) const;
+  std::string* mutable_userdata(int index);
+  void set_userdata(int index, const std::string& value);
+  void set_userdata(int index, std::string&& value);
+  void set_userdata(int index, const char* value);
+  void set_userdata(int index, const char* value, size_t size);
+  std::string* add_userdata();
+  void add_userdata(const std::string& value);
+  void add_userdata(std::string&& value);
+  void add_userdata(const char* value);
+  void add_userdata(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& userdata() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_userdata();
+  private:
+  const std::string& _internal_userdata(int index) const;
+  std::string* _internal_add_userdata();
+  public:
+
   // string Command = 1;
   void clear_command();
   const std::string& command() const;
@@ -569,22 +601,6 @@ class ReplyVideoMessage PROTOBUF_FINAL :
   const std::string& _internal_command() const;
   void _internal_set_command(const std::string& value);
   std::string* _internal_mutable_command();
-  public:
-
-  // string UserData = 2;
-  void clear_userdata();
-  const std::string& userdata() const;
-  void set_userdata(const std::string& value);
-  void set_userdata(std::string&& value);
-  void set_userdata(const char* value);
-  void set_userdata(const char* value, size_t size);
-  std::string* mutable_userdata();
-  std::string* release_userdata();
-  void set_allocated_userdata(std::string* userdata);
-  private:
-  const std::string& _internal_userdata() const;
-  void _internal_set_userdata(const std::string& value);
-  std::string* _internal_mutable_userdata();
   public:
 
   // bytes VideoBuff = 3;
@@ -610,8 +626,8 @@ class ReplyVideoMessage PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> userdata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr command_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr userdata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr videobuff_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ImageStream_2eproto;
@@ -854,65 +870,78 @@ inline void RequestVideoMessage::set_allocated_command(std::string* command) {
   // @@protoc_insertion_point(field_set_allocated:CVImageService.RequestVideoMessage.Command)
 }
 
-// string UserData = 2;
+// repeated string UserData = 2;
+inline int RequestVideoMessage::_internal_userdata_size() const {
+  return userdata_.size();
+}
+inline int RequestVideoMessage::userdata_size() const {
+  return _internal_userdata_size();
+}
 inline void RequestVideoMessage::clear_userdata() {
-  userdata_.ClearToEmpty();
+  userdata_.Clear();
 }
-inline const std::string& RequestVideoMessage::userdata() const {
+inline std::string* RequestVideoMessage::add_userdata() {
+  // @@protoc_insertion_point(field_add_mutable:CVImageService.RequestVideoMessage.UserData)
+  return _internal_add_userdata();
+}
+inline const std::string& RequestVideoMessage::_internal_userdata(int index) const {
+  return userdata_.Get(index);
+}
+inline const std::string& RequestVideoMessage::userdata(int index) const {
   // @@protoc_insertion_point(field_get:CVImageService.RequestVideoMessage.UserData)
-  return _internal_userdata();
+  return _internal_userdata(index);
 }
-inline void RequestVideoMessage::set_userdata(const std::string& value) {
-  _internal_set_userdata(value);
-  // @@protoc_insertion_point(field_set:CVImageService.RequestVideoMessage.UserData)
-}
-inline std::string* RequestVideoMessage::mutable_userdata() {
+inline std::string* RequestVideoMessage::mutable_userdata(int index) {
   // @@protoc_insertion_point(field_mutable:CVImageService.RequestVideoMessage.UserData)
-  return _internal_mutable_userdata();
+  return userdata_.Mutable(index);
 }
-inline const std::string& RequestVideoMessage::_internal_userdata() const {
-  return userdata_.Get();
+inline void RequestVideoMessage::set_userdata(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:CVImageService.RequestVideoMessage.UserData)
+  userdata_.Mutable(index)->assign(value);
 }
-inline void RequestVideoMessage::_internal_set_userdata(const std::string& value) {
-  
-  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+inline void RequestVideoMessage::set_userdata(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:CVImageService.RequestVideoMessage.UserData)
+  userdata_.Mutable(index)->assign(std::move(value));
 }
-inline void RequestVideoMessage::set_userdata(std::string&& value) {
-  
-  userdata_.Set(
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:CVImageService.RequestVideoMessage.UserData)
-}
-inline void RequestVideoMessage::set_userdata(const char* value) {
+inline void RequestVideoMessage::set_userdata(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
-  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  userdata_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:CVImageService.RequestVideoMessage.UserData)
 }
-inline void RequestVideoMessage::set_userdata(const char* value,
-    size_t size) {
-  
-  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
+inline void RequestVideoMessage::set_userdata(int index, const char* value, size_t size) {
+  userdata_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_set_pointer:CVImageService.RequestVideoMessage.UserData)
 }
-inline std::string* RequestVideoMessage::_internal_mutable_userdata() {
-  
-  return userdata_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+inline std::string* RequestVideoMessage::_internal_add_userdata() {
+  return userdata_.Add();
 }
-inline std::string* RequestVideoMessage::release_userdata() {
-  // @@protoc_insertion_point(field_release:CVImageService.RequestVideoMessage.UserData)
-  return userdata_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline void RequestVideoMessage::add_userdata(const std::string& value) {
+  userdata_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:CVImageService.RequestVideoMessage.UserData)
 }
-inline void RequestVideoMessage::set_allocated_userdata(std::string* userdata) {
-  if (userdata != nullptr) {
-    
-  } else {
-    
-  }
-  userdata_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), userdata,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:CVImageService.RequestVideoMessage.UserData)
+inline void RequestVideoMessage::add_userdata(std::string&& value) {
+  userdata_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:CVImageService.RequestVideoMessage.UserData)
+}
+inline void RequestVideoMessage::add_userdata(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  userdata_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:CVImageService.RequestVideoMessage.UserData)
+}
+inline void RequestVideoMessage::add_userdata(const char* value, size_t size) {
+  userdata_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:CVImageService.RequestVideoMessage.UserData)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+RequestVideoMessage::userdata() const {
+  // @@protoc_insertion_point(field_list:CVImageService.RequestVideoMessage.UserData)
+  return userdata_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+RequestVideoMessage::mutable_userdata() {
+  // @@protoc_insertion_point(field_mutable_list:CVImageService.RequestVideoMessage.UserData)
+  return &userdata_;
 }
 
 // bytes VideoBuff = 3;
@@ -1041,65 +1070,78 @@ inline void ReplyVideoMessage::set_allocated_command(std::string* command) {
   // @@protoc_insertion_point(field_set_allocated:CVImageService.ReplyVideoMessage.Command)
 }
 
-// string UserData = 2;
+// repeated string UserData = 2;
+inline int ReplyVideoMessage::_internal_userdata_size() const {
+  return userdata_.size();
+}
+inline int ReplyVideoMessage::userdata_size() const {
+  return _internal_userdata_size();
+}
 inline void ReplyVideoMessage::clear_userdata() {
-  userdata_.ClearToEmpty();
+  userdata_.Clear();
 }
-inline const std::string& ReplyVideoMessage::userdata() const {
+inline std::string* ReplyVideoMessage::add_userdata() {
+  // @@protoc_insertion_point(field_add_mutable:CVImageService.ReplyVideoMessage.UserData)
+  return _internal_add_userdata();
+}
+inline const std::string& ReplyVideoMessage::_internal_userdata(int index) const {
+  return userdata_.Get(index);
+}
+inline const std::string& ReplyVideoMessage::userdata(int index) const {
   // @@protoc_insertion_point(field_get:CVImageService.ReplyVideoMessage.UserData)
-  return _internal_userdata();
+  return _internal_userdata(index);
 }
-inline void ReplyVideoMessage::set_userdata(const std::string& value) {
-  _internal_set_userdata(value);
-  // @@protoc_insertion_point(field_set:CVImageService.ReplyVideoMessage.UserData)
-}
-inline std::string* ReplyVideoMessage::mutable_userdata() {
+inline std::string* ReplyVideoMessage::mutable_userdata(int index) {
   // @@protoc_insertion_point(field_mutable:CVImageService.ReplyVideoMessage.UserData)
-  return _internal_mutable_userdata();
+  return userdata_.Mutable(index);
 }
-inline const std::string& ReplyVideoMessage::_internal_userdata() const {
-  return userdata_.Get();
+inline void ReplyVideoMessage::set_userdata(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:CVImageService.ReplyVideoMessage.UserData)
+  userdata_.Mutable(index)->assign(value);
 }
-inline void ReplyVideoMessage::_internal_set_userdata(const std::string& value) {
-  
-  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+inline void ReplyVideoMessage::set_userdata(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:CVImageService.ReplyVideoMessage.UserData)
+  userdata_.Mutable(index)->assign(std::move(value));
 }
-inline void ReplyVideoMessage::set_userdata(std::string&& value) {
-  
-  userdata_.Set(
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:CVImageService.ReplyVideoMessage.UserData)
-}
-inline void ReplyVideoMessage::set_userdata(const char* value) {
+inline void ReplyVideoMessage::set_userdata(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
-  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  userdata_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:CVImageService.ReplyVideoMessage.UserData)
 }
-inline void ReplyVideoMessage::set_userdata(const char* value,
-    size_t size) {
-  
-  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
+inline void ReplyVideoMessage::set_userdata(int index, const char* value, size_t size) {
+  userdata_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_set_pointer:CVImageService.ReplyVideoMessage.UserData)
 }
-inline std::string* ReplyVideoMessage::_internal_mutable_userdata() {
-  
-  return userdata_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+inline std::string* ReplyVideoMessage::_internal_add_userdata() {
+  return userdata_.Add();
 }
-inline std::string* ReplyVideoMessage::release_userdata() {
-  // @@protoc_insertion_point(field_release:CVImageService.ReplyVideoMessage.UserData)
-  return userdata_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline void ReplyVideoMessage::add_userdata(const std::string& value) {
+  userdata_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:CVImageService.ReplyVideoMessage.UserData)
 }
-inline void ReplyVideoMessage::set_allocated_userdata(std::string* userdata) {
-  if (userdata != nullptr) {
-    
-  } else {
-    
-  }
-  userdata_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), userdata,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:CVImageService.ReplyVideoMessage.UserData)
+inline void ReplyVideoMessage::add_userdata(std::string&& value) {
+  userdata_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:CVImageService.ReplyVideoMessage.UserData)
+}
+inline void ReplyVideoMessage::add_userdata(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  userdata_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:CVImageService.ReplyVideoMessage.UserData)
+}
+inline void ReplyVideoMessage::add_userdata(const char* value, size_t size) {
+  userdata_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:CVImageService.ReplyVideoMessage.UserData)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+ReplyVideoMessage::userdata() const {
+  // @@protoc_insertion_point(field_list:CVImageService.ReplyVideoMessage.UserData)
+  return userdata_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+ReplyVideoMessage::mutable_userdata() {
+  // @@protoc_insertion_point(field_mutable_list:CVImageService.ReplyVideoMessage.UserData)
+  return &userdata_;
 }
 
 // bytes VideoBuff = 3;

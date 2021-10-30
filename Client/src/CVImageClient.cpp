@@ -70,18 +70,92 @@ void CVImageClient::Login()
         m_stub->CVLogin(&context));
 
     CVImageService::RequestVideoMessage request;
+    request.add_userdata(username);
     request.set_command("Login");
-    request.set_userdata(username);
+    //request.set_userdata(0, "Login");
     stream->Write(request);
 
     CVImageService::ReplyVideoMessage reply;
     stream->Read(&reply);
-    if (reply.userdata().compare("secuess") != 0)
+    if (reply.userdata(0).compare("secuess") != 0)
     {
         std::cout << "登录失败" << std::endl;
         return;
     }
-    std::cout << "登录成功" << std::endl;
+    
+    std::cout << "登录成功，用户列表如下：" << std::endl;
+    for (int i = 1; i < reply.userdata_size(); i++)
+    {
+        std::cout << reply.userdata(i) << std::endl;
+    }
+}
+
+void CVImageClient::NetViedo()
+{
+    
+    grpc::ClientContext context;
+    std::shared_ptr<grpc::ClientReaderWriter<CVImageService::RequestVideoMessage, CVImageService::ReplyVideoMessage>> stream(
+        m_stub->CVVideo(&context));
+    bool isSendViedo = true;
+
+    //这个线程监听是否有视频请求，如果有就只接收不发送
+    std::thread([stream, isSendViedo]() {
+        CVImageService::ReplyVideoMessage reply;
+        while (stream->Read(&reply))
+        {
+            if (reply.command().compare("Video") == 0)
+            {
+                
+            }
+        }
+    });
+
+    //
+    std::cout << "输入用户名选择视频用户" << std::endl;
+    std::string username;
+    std::cin >> username;
+    
+    //接收图像
+
+
+
+    //发送图像
+    cv::Mat frame;
+    cv::VideoCapture capture(0);
+    std::vector<uchar> data_encode;
+    std::string str_encode;
+    CVImageService::RequestVideoMessage request;
+    request.add_userdata(username);
+    request.set_command("Video");
+    if (capture.isOpened()) { //摄像头读取文件开关
+        while (true) {
+            capture >> frame;
+            if (!frame.empty()) {
+               //传输图像 
+               cv::imencode(".png", frame, data_encode);
+               str_encode.append(data_encode.begin(), data_encode.end());
+               request.set_videobuff(str_encode);
+               stream->Write(request);
+
+               request.Clear();
+               str_encode.clear();
+               data_encode.clear();
+            }
+            else {
+                printf("error");
+                break;
+            }
+
+            int c = cv::waitKey(50);
+            if ((char)c == 27) {
+                break;
+            }
+        }
+
+    }
+
+
+
 }
 
 void CVImageClient::ImageProcess()
@@ -94,7 +168,7 @@ void CVImageClient::ImageProcess()
     std::shared_ptr<grpc::ClientReaderWriter<CVImageService::ImageMessage, CVImageService::ImageMessage> > stream(
         m_stub->CVImageProcessFunction(&context));
 
-    cv::Mat src= cv::imread("C:/Users/gl/Desktop/Temp/photo.png"); //设置图像路径
+    cv::Mat src= cv::imread("C:/Users/gl/Desktop/Temp/3.jpg"); //设置图像路径
     std::vector<uchar> data_encode;
     //直接编码
     if (!cv::imencode(".png", src, data_encode))
