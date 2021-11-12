@@ -111,22 +111,24 @@ const char descriptor_table_protodef_ImageStream_2eproto[] PROTOBUF_SECTION_VARI
   "RequestVideoMessage\022\017\n\007Command\030\001 \001(\t\022\020\n\010"
   "UserData\030\002 \003(\t\022\021\n\tVideoBuff\030\003 \001(\014\"I\n\021Rep"
   "lyVideoMessage\022\017\n\007Command\030\001 \001(\t\022\020\n\010UserD"
-  "ata\030\002 \003(\t\022\021\n\tVideoBuff\030\003 \001(\0142\346\002\n\010CVServe"
+  "ata\030\002 \003(\t\022\021\n\tVideoBuff\030\003 \001(\0142\304\003\n\010CVServe"
   "r\022R\n\020CVMatImageStream\022\034.CVImageService.I"
   "mageMessage\032\034.CVImageService.ImageMessag"
   "e(\0010\001\022X\n\026CVImageProcessFunction\022\034.CVImag"
   "eService.ImageMessage\032\034.CVImageService.I"
   "mageMessage(\0010\001\022U\n\007CVLogin\022#.CVImageServ"
   "ice.RequestVideoMessage\032!.CVImageService"
-  ".ReplyVideoMessage(\0010\001\022U\n\007CVVideo\022#.CVIm"
-  "ageService.RequestVideoMessage\032!.CVImage"
-  "Service.ReplyVideoMessage(\0010\001B*\n\025io.grpc"
-  ".examples.gateB\tGateProtoP\001\242\002\003RTGb\006proto"
-  "3"
+  ".ReplyVideoMessage(\0010\001\022\\\n\016CVVideoRequest"
+  "\022#.CVImageService.RequestVideoMessage\032!."
+  "CVImageService.ReplyVideoMessage(\0010\001\022U\n\007"
+  "CVVideo\022#.CVImageService.RequestVideoMes"
+  "sage\032!.CVImageService.ReplyVideoMessage("
+  "\0010\001B*\n\025io.grpc.examples.gateB\tGateProtoP"
+  "\001\242\002\003RTGb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ImageStream_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ImageStream_2eproto = {
-  false, false, 681, descriptor_table_protodef_ImageStream_2eproto, "ImageStream.proto", 
+  false, false, 775, descriptor_table_protodef_ImageStream_2eproto, "ImageStream.proto", 
   &descriptor_table_ImageStream_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_ImageStream_2eproto::offsets,
   file_level_metadata_ImageStream_2eproto, file_level_enum_descriptors_ImageStream_2eproto, file_level_service_descriptors_ImageStream_2eproto,

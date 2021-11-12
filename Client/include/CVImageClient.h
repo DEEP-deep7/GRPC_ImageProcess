@@ -26,14 +26,23 @@ public:
 
 	void GetImageData();
 
+	void VideoRequest(std::string * nn);
+
 	void Login();
 
-	void NetViedo();
+	void NetViedo(std::string username);
 
 private:
 	void ShowImage(cv::Mat image);
 
+	bool m_IsViedo = true;
 
+	std::mutex* m_tex;
+
+	std::string m_client;
+	std::string* m_clientPtr;
+
+	std::string m_username;
 
 	std::unique_ptr<CVImageService::CVServer::Stub> m_stub;
 };

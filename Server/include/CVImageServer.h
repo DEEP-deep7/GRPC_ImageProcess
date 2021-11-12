@@ -23,15 +23,24 @@ public:
 
 	CVImageServer();
 
+	//≤‚ ‘
 	::grpc::Status CVMatImageStream(::grpc::ServerContext* context,
 		::grpc::ServerReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* stream);
 
+	//ÕºœÒ¥¶¿Ì
 	::grpc::Status CVImageProcessFunction(::grpc::ServerContext* context, 
 		::grpc::ServerReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* stream);
 
+	//∫ÙΩ–
+	::grpc::Status CVVideoRequest(::grpc::ServerContext* context, 
+		::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream);
+
+
+	//µ«¬º
 	::grpc::Status CVLogin(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, 
 		::CVImageService::RequestVideoMessage>* stream);
 
+	// ”∆µ
 	::grpc::Status CVVideo(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, 
 		::CVImageService::RequestVideoMessage>* stream);
 

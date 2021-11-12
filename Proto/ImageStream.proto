@@ -31,6 +31,9 @@ service CVServer {
 
   //网络图像事实传输，登陆功能。
   rpc CVLogin(stream RequestVideoMessage) returns ( stream ReplyVideoMessage);
+
+  //网络图像事实传输，请求通话。
+  rpc CVVideoRequest(stream RequestVideoMessage) returns ( stream ReplyVideoMessage);
   
   //网络图像事实传输，视频功能。
   rpc CVVideo(stream RequestVideoMessage) returns ( stream ReplyVideoMessage);

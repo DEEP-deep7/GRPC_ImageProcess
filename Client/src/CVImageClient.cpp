@@ -1,14 +1,23 @@
 #include "..\include\CVImageClient.h"
 #include <grpcpp/client_context.h>
+#include <thread>
+#include <mutex>
 
 
 CVImageClient::CVImageClient(std::shared_ptr<Channel> channel)
 {
 	m_stub = CVImageService::CVServer::NewStub(channel);
+    m_tex = new std::mutex;
+    m_clientPtr = &m_client;
 }
 
 void CVImageClient::ShowImage(cv::Mat image)
 {
+    if (image.empty())
+    {
+        std::cout << "empty image" << std::endl;
+        return;
+    }
     std::cout << "CVHandle" << std::endl;
     cv::namedWindow("测试opencv", cv::WINDOW_AUTOSIZE);
     cv::imshow("测试opencv", image);
@@ -60,17 +69,75 @@ void CVImageClient::GetImageData()
     ShowImage(tempmat);
 }
 
+void CVImageClient::VideoRequest(std::string* nn)
+{
+    //要开启一个线程来监听返回消息，也可以用io多路复用
+    std::cout << "开始监听回复消息" << std::endl;
+    grpc::ClientContext context;
+    std::shared_ptr<grpc::ClientReaderWriter<CVImageService::RequestVideoMessage, CVImageService::ReplyVideoMessage>> stream(
+        m_stub->CVVideoRequest(&context));
+    
+    CVImageService::ReplyVideoMessage reply;
+    stream->Read(&reply);
+    if (reply.command().compare("VideoRequest") == 0)
+    {
+        /*CVImageService::RequestVideoMessage request;
+        request.set_command("argue");
+        std::cout << "client:" << nn <<std::endl;
+        request.add_userdata(m_username);
+        request.add_userdata(*nn);
+        stream->Write(request);
+        m_IsViedo = false;*/
+        std::cout << "接收图像" << std::endl;
+    }
+    else
+    {
+        std::cout << "error command:" << reply.command();
+        return;
+    }
+    
+    //接收图像
+    grpc::ClientContext context2;
+    std::shared_ptr<grpc::ClientReaderWriter<CVImageService::RequestVideoMessage, CVImageService::ReplyVideoMessage>> stream2(
+        m_stub->CVVideo(&context2));
+    
+    CVImageService::ReplyVideoMessage reply2;
+    cv::Mat tempmat;
+    //std::string strbuf;
+    std::vector<uchar> data;
+    while (stream2->Read(&reply2))
+    {
+        if (reply2.command().compare("video") == 0)
+        {
+            data.resize(reply2.videobuff().size());
+            std::copy(reply2.videobuff().begin(), reply2.videobuff().end(), data.begin());
+            
+            
+
+            tempmat = cv::imdecode(data, 1);
+            if (tempmat.empty());
+            {
+                std::cout << "imdecode maybe error" << std::endl;
+                //return;
+            }
+            ShowImage(tempmat);
+        }
+        std::cout << "recive image" << std::endl;
+    }
+    
+}
+
 void CVImageClient::Login()
 {
     std::cout << "输入用户名" << std::endl;
-    std::string username;
-    std::cin >> username;
+    
+    std::cin >> m_username;
     grpc::ClientContext context;
     std::shared_ptr<grpc::ClientReaderWriter<CVImageService::RequestVideoMessage, CVImageService::ReplyVideoMessage>> stream(
         m_stub->CVLogin(&context));
 
     CVImageService::RequestVideoMessage request;
-    request.add_userdata(username);
+    request.add_userdata(m_username);
     request.set_command("Login");
     //request.set_userdata(0, "Login");
     stream->Write(request);
@@ -88,36 +155,49 @@ void CVImageClient::Login()
     {
         std::cout << reply.userdata(i) << std::endl;
     }
+
+
+    std::thread t(&CVImageClient::VideoRequest,this , m_clientPtr);
+    //t.detach();
+
+    grpc::ClientContext context2;
+    std::shared_ptr<grpc::ClientReaderWriter<CVImageService::RequestVideoMessage, CVImageService::ReplyVideoMessage>> stream2(
+        m_stub->CVVideoRequest(&context2));
+    std::cout << "输入用户名进行呼叫" << std::endl;
+    
+    std::cin >> m_client;
+    
+    CVImageService::RequestVideoMessage request2;
+    request2.set_command("VideoRequest");
+    request2.add_userdata(m_username);
+    request2.add_userdata(m_client);
+    std::cout << "m_client:" << m_client <<std::endl;
+    stream2->Write(request2);
+
+    CVImageService::ReplyVideoMessage reply2;
+    stream2->Read(&reply2);
+
+    /*if (reply2.command().compare("argue") != 0)
+    {
+        std::cout << "用户拒绝:" << reply2.command() << std::endl;
+        return;
+    }*/
+
+    //发送图像
+    NetViedo(m_username);
+    
+    t.join();
+    
+
 }
 
-void CVImageClient::NetViedo()
+void CVImageClient::NetViedo(std::string username)
 {
     
+    std::cout << "发送图像" << std::endl;
     grpc::ClientContext context;
     std::shared_ptr<grpc::ClientReaderWriter<CVImageService::RequestVideoMessage, CVImageService::ReplyVideoMessage>> stream(
         m_stub->CVVideo(&context));
-    bool isSendViedo = true;
-
-    //这个线程监听是否有视频请求，如果有就只接收不发送
-    std::thread([stream, isSendViedo]() {
-        CVImageService::ReplyVideoMessage reply;
-        while (stream->Read(&reply))
-        {
-            if (reply.command().compare("Video") == 0)
-            {
-                
-            }
-        }
-    });
-
-    //
-    std::cout << "输入用户名选择视频用户" << std::endl;
-    std::string username;
-    std::cin >> username;
-    
-    //接收图像
-
-
 
     //发送图像
     cv::Mat frame;
@@ -125,18 +205,21 @@ void CVImageClient::NetViedo()
     std::vector<uchar> data_encode;
     std::string str_encode;
     CVImageService::RequestVideoMessage request;
-    request.add_userdata(username);
-    request.set_command("Video");
+    
     if (capture.isOpened()) { //摄像头读取文件开关
         while (true) {
+            Sleep(1000);
             capture >> frame;
             if (!frame.empty()) {
                //传输图像 
                cv::imencode(".png", frame, data_encode);
                str_encode.append(data_encode.begin(), data_encode.end());
+               request.add_userdata(username);
+               request.set_command("Video");
                request.set_videobuff(str_encode);
                stream->Write(request);
 
+               std::cout << "send" << std::endl;
                request.Clear();
                str_encode.clear();
                data_encode.clear();

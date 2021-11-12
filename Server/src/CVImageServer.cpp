@@ -131,6 +131,42 @@ CVImageServer::CVImageServer()
 	return ::grpc::Status::OK;
 }
 
+::grpc::Status CVImageServer::CVVideoRequest(::grpc::ServerContext* context, ::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream)
+{
+	::CVImageService::RequestVideoMessage request;
+	stream->Read(&request);
+	//std::cout << request.userdata(0) << "发出请求" << std::endl;
+	std::cout << "userdata size:" << request.userdata_size() << std::endl;
+	::CVImageService::ReplyVideoMessage reply;
+	if (request.command().compare("VideoRequest")==0)
+	{
+		if (request.userdata_size() > 1)
+		{
+			std::cout << request.userdata(0) << "呼叫" << request.userdata(1) << std::endl;
+			reply.set_command("VideoRequest");
+			auto user = m_UserMap.find(request.userdata(1));
+			reply.add_userdata(request.userdata(0));
+			if (user->second)
+			{
+				user->second->Write(reply);
+			}
+			else
+			{
+				std::cout << "error call:" << request.userdata(1);
+			}
+		}
+	}
+	else
+	{	//这里为什么会有个空包发过来
+		std::cout << "request error:" << ":"<< request.command() << std::endl;
+		return ::grpc::Status();
+	}
+	
+	
+
+	return ::grpc::Status();
+}
+
 ::grpc::Status CVImageServer::CVLogin(::grpc::ServerContext* context,
 	::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream)
 {
@@ -177,17 +213,16 @@ CVImageServer::CVImageServer()
 ::grpc::Status CVImageServer::CVVideo(::grpc::ServerContext* context,
 	::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream)
 {
-	//std::cout << "CVLogin" << std::endl;
-
+	std::cout << "CVVideo" << std::endl;
 	::CVImageService::RequestVideoMessage request;
 	stream->Read(&request);
 
-	if (request.command().compare("Video") != 0)
+	if (request.command().compare("Video") == 0)
 	{
 		std::string username = request.userdata(0);
 		
-		auto Userstream = m_UserMap.at(username);
-		if (Userstream == nullptr)
+		auto Userstream = m_UserMap.find(username);
+		if (Userstream->second == nullptr)
 		{
 			std::cout << "find error stream" << std::endl;
 			return ::grpc::Status::OK;
@@ -195,9 +230,16 @@ CVImageServer::CVImageServer()
 
 		::CVImageService::ReplyVideoMessage reply;
 		reply.set_command("Video");
-		reply.set_userdata(0,"secuess");
+		reply.add_userdata("secuess");
 		reply.set_videobuff(request.videobuff());
-		Userstream->Write(reply);
+		if (Userstream->second->Write(reply))
+		{
+			std::cout << "write error" << std::endl;
+			std::cout << "send to:" << username << std::endl;
+			std::cout << "video buff size:" << request.videobuff().size() << std::endl;
+		}
+		
+		
 	}
 
 	return ::grpc::Status::OK;

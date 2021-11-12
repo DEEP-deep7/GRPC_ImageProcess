@@ -7,13 +7,12 @@ int main()
 		grpc::InsecureChannelCredentials()));
 	std::cout << "start handle image stream" << std::endl;
 	
-
 	int modle;
 	
 	
 	while (true)
 	{
-		std::cout << "选择模式：1为图像传输测试，2为远端图像处理demo，3为登录，4为网络视频" << std::endl;
+		std::cout << "选择模式：1为图像传输测试，2为远端图像处理demo，3为登录+网络视频" << std::endl;
 		std::cout << "网络视频功能必须先登录" << std::endl;
 		std::cin >> modle;
 

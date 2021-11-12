@@ -25,6 +25,7 @@ static const char* CVServer_method_names[] = {
   "/CVImageService.CVServer/CVMatImageStream",
   "/CVImageService.CVServer/CVImageProcessFunction",
   "/CVImageService.CVServer/CVLogin",
+  "/CVImageService.CVServer/CVVideoRequest",
   "/CVImageService.CVServer/CVVideo",
 };
 
@@ -38,7 +39,8 @@ CVServer::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, 
   : channel_(channel), rpcmethod_CVMatImageStream_(CVServer_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
   , rpcmethod_CVImageProcessFunction_(CVServer_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
   , rpcmethod_CVLogin_(CVServer_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
-  , rpcmethod_CVVideo_(CVServer_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
+  , rpcmethod_CVVideoRequest_(CVServer_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
+  , rpcmethod_CVVideo_(CVServer_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
   {}
 
 ::grpc::ClientReaderWriter< ::CVImageService::ImageMessage, ::CVImageService::ImageMessage>* CVServer::Stub::CVMatImageStreamRaw(::grpc::ClientContext* context) {
@@ -87,6 +89,22 @@ void CVServer::Stub::async::CVLogin(::grpc::ClientContext* context, ::grpc::Clie
 
 ::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVServer::Stub::PrepareAsyncCVLoginRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
   return ::grpc::internal::ClientAsyncReaderWriterFactory< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>::Create(channel_.get(), cq, rpcmethod_CVLogin_, context, false, nullptr);
+}
+
+::grpc::ClientReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVServer::Stub::CVVideoRequestRaw(::grpc::ClientContext* context) {
+  return ::grpc::internal::ClientReaderWriterFactory< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>::Create(channel_.get(), rpcmethod_CVVideoRequest_, context);
+}
+
+void CVServer::Stub::async::CVVideoRequest(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CVImageService::RequestVideoMessage,::CVImageService::ReplyVideoMessage>* reactor) {
+  ::grpc::internal::ClientCallbackReaderWriterFactory< ::CVImageService::RequestVideoMessage,::CVImageService::ReplyVideoMessage>::Create(stub_->channel_.get(), stub_->rpcmethod_CVVideoRequest_, context, reactor);
+}
+
+::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVServer::Stub::AsyncCVVideoRequestRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>::Create(channel_.get(), cq, rpcmethod_CVVideoRequest_, context, true, tag);
+}
+
+::grpc::ClientAsyncReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVServer::Stub::PrepareAsyncCVVideoRequestRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>::Create(channel_.get(), cq, rpcmethod_CVVideoRequest_, context, false, nullptr);
 }
 
 ::grpc::ClientReaderWriter< ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>* CVServer::Stub::CVVideoRaw(::grpc::ClientContext* context) {
@@ -144,6 +162,16 @@ CVServer::Service::Service() {
              ::grpc::ServerContext* ctx,
              ::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage,
              ::CVImageService::RequestVideoMessage>* stream) {
+               return service->CVVideoRequest(ctx, stream);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      CVServer_method_names[4],
+      ::grpc::internal::RpcMethod::BIDI_STREAMING,
+      new ::grpc::internal::BidiStreamingHandler< CVServer::Service, ::CVImageService::RequestVideoMessage, ::CVImageService::ReplyVideoMessage>(
+          [](CVServer::Service* service,
+             ::grpc::ServerContext* ctx,
+             ::grpc::ServerReaderWriter<::CVImageService::ReplyVideoMessage,
+             ::CVImageService::RequestVideoMessage>* stream) {
                return service->CVVideo(ctx, stream);
              }, this)));
 }
@@ -164,6 +192,12 @@ CVServer::Service::~Service() {
 }
 
 ::grpc::Status CVServer::Service::CVLogin(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream) {
+  (void) context;
+  (void) stream;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status CVServer::Service::CVVideoRequest(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CVImageService::ReplyVideoMessage, ::CVImageService::RequestVideoMessage>* stream) {
   (void) context;
   (void) stream;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
